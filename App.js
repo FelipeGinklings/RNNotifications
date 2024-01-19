@@ -2,6 +2,16 @@ import { Button, StyleSheet, View } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import { StatusBar } from 'expo-status-bar';
 
+Notifications.setNotificationHandler({
+	handleNotification: async () => {
+		return {
+			shouldPlaySound: false,
+			shouldSetBadge: false,
+			shouldShowAlert: true,
+		};
+	},
+});
+
 const App = () => {
 	const scheduleNotificationHandler = () => {
 		Notifications.scheduleNotificationAsync({
