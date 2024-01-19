@@ -15,17 +15,35 @@ Notifications.setNotificationHandler({
 
 const App = () => {
 	useEffect(() => {
-		const subscription = Notifications.addNotificationReceivedListener(
+		const subscription1 = Notifications.addNotificationReceivedListener(
 			(notification) => {
-        const userName = notification.request.content.data.userName
-				console.log('Notification received!\n', notification, '\nUserName: ', userName);
+				const userName = notification.request.content.data.userName;
+				// console.log(
+				// 	'Notification received!\n',
+				// 	notification,
+				// 	'\nUserName: ',
+				// 	userName
+				// );
 			}
 		);
 
-    // Cleaner function
-    return () => {
-      subscription.remove();
-    }
+		const subscription2 =
+			Notifications.addNotificationResponseReceivedListener(
+				(response) => {
+					console.log(
+						'Response: ',
+						response,
+						'\nUserName: ',
+						response.notification.request.content.data.userName
+					);
+				}
+			);
+
+		// Cleaner function
+		return () => {
+			subscription1.remove();
+			subscription2.remove();
+		};
 	}, []);
 
 	const scheduleNotificationHandler = () => {
