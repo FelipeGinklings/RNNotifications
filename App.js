@@ -14,6 +14,12 @@ Notifications.setNotificationHandler({
 });
 
 const App = () => {
+  useEffect(() => {
+    Notifications.getExpoPushTokenAsync().then((pushTokenData) => {
+      console.log('Expo push token: ', pushTokenData.data);
+    })
+  }, [])
+
 	useEffect(() => {
 		const subscription1 = Notifications.addNotificationReceivedListener(
 			(notification) => {
